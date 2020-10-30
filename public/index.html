@@ -197,12 +197,14 @@
         }
 
         function getBudget(){
-            axios.get('http://localhost:3002/budget')
+           // axios.get('http://localhost:3002/budget')
+           axios.get('http://localhost:3002/budgets')
             .then(function (res) {
                 console.log(res);
-                for(var i = 0; i < res.data.myBudget.length; i ++) {
-                    dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
-                    dataSource.labels[i] = res.data.myBudget[i].title;
+                console.log("CHART 1");
+                for(var i = 0; i < res.data.length; i ++) {
+                   dataSource.datasets[0].data[i] = res.data[i].budget;
+                 dataSource.labels[i] = res.data[i].title;
                 }
                 createChart();
             });
@@ -221,18 +223,15 @@
         var legendSpacing = 4;                                    
 
             function getBudgetData(){
-                axios.get('http://localhost:3002/budget')
+                axios.get('http://localhost:3002/budgets')
                 .then(function (res) {
                     console.log(res);
                     
-                    for(var i = 0; i < res.data.myBudget.length; i++) {
-                        dataSource1.data[i] = res.data.myBudget[i].budget;
-                        dataSource1.labels[i] = res.data.myBudget[i].title;
-                        dataSource1.range[i]= res.data.myBudget[i].range;
-                        dataSource1.legendData[i]= res.data.myBudget[i].title + " : " + res.data.myBudget[i].budget;
-                        console.log('datasource1', dataSource1.data[i]);
-                        console.log('datasource1', dataSource1.labels[i]);
-                        console.log('datasource1', dataSource1.range[i]);
+                    for(var i = 0; i < res.data.length; i++) {
+                        dataSource1.data[i] = res.data[i].budget;
+                        dataSource1.labels[i] = res.data[i].title;
+                        dataSource1.range[i]= res.data[i].range;
+                        dataSource1.legendData[i]= res.data[i].title + " : " + res.data[i].budget;
                     }
                     createChart1();
                 });
